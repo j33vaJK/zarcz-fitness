@@ -70,7 +70,6 @@
     "@netlify/plugin-nextjs": "^5.15.8",
     "@prisma/client": "^7.8.0",
     "@storybook/nextjs": "^10.2.3",
-    "@tailwindcss/postcss": "^4",
     "@tanstack/react-query-devtools": "^5.91.3",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
