@@ -1,1 +1,2 @@
-# zarcz-fitness
+# zarc-template
+Fitness Store Website template

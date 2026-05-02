@@ -1,0 +1,109 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─────────────────────────────────────────────
+// Category
+// ─────────────────────────────────────────────
+model Category {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  image     String?
+  itemCount Int       @default(0)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  products  Product[]
+}
+
+// ─────────────────────────────────────────────
+// Product
+// ─────────────────────────────────────────────
+model Product {
+  id          String        @id @default(cuid())
+  name        String
+  categoryId  String
+  category    Category      @relation(fields: [categoryId], references: [id])
+  price       Float
+  stock       Int           @default(0)
+  status      ProductStatus @default(IN_STOCK)
+  image       String?
+  description String
+  featured    Boolean       @default(false)
+  boxQuantity Int?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  invoiceItems InvoiceItem[]
+}
+
+enum ProductStatus {
+  IN_STOCK
+  LOW_STOCK
+  OUT_OF_STOCK
+}
+
+// ─────────────────────────────────────────────
+// Service
+// ─────────────────────────────────────────────
+model Service {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  icon        String
+  image       String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ─────────────────────────────────────────────
+// Testimonial
+// ─────────────────────────────────────────────
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  role      String?
+  content   String
+  avatar    String
+  rating    Int      @default(5)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─────────────────────────────────────────────
+// Invoice & Billing
+// ─────────────────────────────────────────────
+model Invoice {
+  id             String        @id @default(cuid())
+  invoiceNumber  String        @unique
+  customerName   String?
+  date           DateTime      @default(now())
+  subtotal       Float
+  taxAmount      Float
+  discountAmount Float         @default(0)
+  grandTotal     Float
+  status         String        @default("Paid")
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  items          InvoiceItem[]
+}
+
+model InvoiceItem {
+  id        String   @id @default(cuid())
+  invoiceId String
+  invoice   Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  quantity  Int
+  unitPrice Float
+  amount    Float
+  taxRate   Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

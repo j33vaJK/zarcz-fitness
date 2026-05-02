@@ -1,0 +1,80 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 220 10% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 10% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 10% 10%;
+    --primary: 16 100% 60%; /* Vibrant Orange */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 10% 96%;
+    --secondary-foreground: 220 10% 10%;
+    --muted: 220 10% 96%;
+    --muted-foreground: 220 10% 45%;
+    --accent: 220 10% 96%;
+    --accent-foreground: 220 10% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 10% 90%;
+    --input: 220 10% 90%;
+    --ring: 16 100% 60%;
+    --radius: 0.25rem; /* sharper, more premium corners */
+  }
+
+  .dark {
+    --background: 227 38% 5%; /* HeroSection Deep Dark #070910 */
+    --foreground: 0 0% 98%;
+    --card: 227 38% 7%;
+    --card-foreground: 0 0% 98%;
+    --popover: 227 38% 5%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 16 100% 60%; /* Vibrant Orange #ff6b35 */
+    --primary-foreground: 0 0% 98%;
+    --secondary: 227 20% 15%; /* Metallic dark tone */
+    --secondary-foreground: 0 0% 98%;
+    --muted: 227 20% 12%;
+    --muted-foreground: 227 10% 65%;
+    --accent: 227 20% 20%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 40%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 227 15% 15%; /* Metallic border */
+    --input: 227 15% 15%;
+    --ring: 16 100% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+  }
+
+  .animate-slide-in {
+    animation: slide-in 0.3s ease-out;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
